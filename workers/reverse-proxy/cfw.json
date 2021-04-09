@@ -1,0 +1,14 @@
+{
+  "name": "subdomain-reverse-proxy",
+  "zoneid": "e2e68740ddb470384e94ab95fbbba5f6",
+  "profile": "personal",
+  "entry": "index.ts",
+  "routes": [
+    "webcherries.com/*"
+	],
+	"globals": {
+		"RVP": "KV:e923e3c527414d6582ecd2c40e7093f9",
+		"SUBDOMAINS": "ENV:['cookie-consent','cms-library','test']",
+    "MAPPED_CDN": "ENV:{'fs-cc@2.js': 'https://cdn.jsdelivr.net/npm/@finsweet/cookie-consent'}"
+  }
+}
