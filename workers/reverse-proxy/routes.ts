@@ -23,7 +23,8 @@ export const index: Handler =  async function (req, res) {
 
 							//check if it contains @
 							if (path[0].includes('@') && (file == cdnpath)) {
-								const versions = path[0].match(/[\d\.]+/);
+								//const versions = path[0].match(/[\d\.]+/);
+								const versions = path[0].match(/\b([0-9][0-9.]*)\b/);
 								const version = versions[0].slice(0, -1);
 								const fileext = /(?:\.([^.]+))?$/.exec(path[0])[1];
 								const url = `${exturl[0]}@${version}/${file}.${fileext}`;
