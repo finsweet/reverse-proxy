@@ -3,12 +3,10 @@
   "zoneid": "",
   "profile": "personal",
   "entry": "index.ts",
-  "routes": [
-    "webcherries.com/*"
-	],
-	"globals": {
-		"RVP": "KV:",
-		"SUBDOMAINS": "ENV:['cookie-consent','cms-library','test']",
-    "MAPPED_CDN": "ENV:{'fs-cc@2.js': 'https://cdn.jsdelivr.net/npm/@finsweet/cookie-consent'}"
+  "routes": ["webcherries.com/*"],
+  "globals": {
+    "RVP": "KV:",
+    "SUBDOMAINS": "ENV:['cookie-consent','cms-library','test']",
+    "MAPPED_CDN": "ENV:{'react@16.7.0': 'unpkg.com/react@X/umd/react.production.min.js'}"
   }
 }
