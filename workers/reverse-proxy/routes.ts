@@ -16,25 +16,25 @@ export const index: Handler =  async function (req, res) {
 		const subdomain = subdomains[0].includes(path[1]);
 		const subdomainUrl:any = await domain(url)
 			try {
-							path.shift();
-							//const file = path[0].split('@')[0];
-							const file = path[0].match(/([^@.]*)/)[0];
-							const cdnpath = cdn.match(/[a-z]([^@]*)/)[0];
+					path.shift();
+					//const file = path[0].split('@')[0];
+					const file = path[0].match(/([^@.]*)/)[0];
+					const cdnpath = cdn.match(/[a-z]([^@]*)/)[0];
 
-							//check if it contains @
-							if (path[0].includes('@') && (file == cdnpath)) {
-								//const versions = path[0].match(/[\d\.]+/);
-								const versions = path[0].match(/\b([0-9][0-9.]*)\b/);
-								const version = versions[0].slice(0, -1);
-								const fileext = /(?:\.([^.]+))?$/.exec(path[0])[1];
-								const url = `${exturl[0]}@${version}/${file}.${fileext}`;
-								return Response.redirect(url, 302);
-							}
-							//if cdn includes filename without @version
-								else if  ((file == cdnpath) && !(path[0].includes('@'))) {
-								const url = `${exturl[0]}/`+path[0];
-								return Response.redirect(url, 302);
-							}
+					//check if it contains @
+					if (path[0].includes('@') && (file == cdnpath)) {
+						//const versions = path[0].match(/[\d\.]+/);
+						const versions = path[0].match(/\b([0-9][0-9.]*)\b/);
+						const version = versions[0].slice(0, -1);
+						const fileext = /(?:\.([^.]+))?$/.exec(path[0])[1];
+						const url = `${exturl[0]}@${version}/${file}.${fileext}`;
+						return Response.redirect(url, 302);
+					}
+					//if cdn includes filename without @version
+						else if  ((file == cdnpath) && !(path[0].includes('@'))) {
+						const url = `${exturl[0]}/`+path[0];
+						return Response.redirect(url, 302);
+					}
 		} catch(e){
 				console.log( e );
 		}
