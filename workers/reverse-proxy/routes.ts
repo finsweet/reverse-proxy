@@ -6,8 +6,10 @@ const subdomains:any = data.globals.SUBDOMAINS.replace('ENV:', '').split(/[/?#]/
 //const exturl=JSON.stringify(cdn).match(/[*(http)]\D+[a-z]/);
 const exturl  = cdn.match(/((http|un)[^'}\s]*)/);
 
+
+
 export const index: Handler =  async function (req, res) {
-	
+
 		const url = req.headers.get('host') || '';
 		const path = req.path.split('/');
 		const path2 = req.path.split('/');
@@ -27,14 +29,14 @@ export const index: Handler =  async function (req, res) {
 						const version = path[0].match(/\d+(\.\d+)+/);
 						const desturl =exturl[0].replace(new RegExp('\\X\\b'), version[0]);
 						const destinationurl = await urlwithoutwww(desturl)
-						return Response.redirect(destinationurl, 302);
+						return fetch(destinationurl);
 					}
 
 					//if cdn includes filename without @version
 						else if  ((file == cdnpath) && !(path[0].includes('@'))) {
 						const desturl =exturl[0].replace(new RegExp('\\@X\\b'), '');
-						const destinationurl = await urlwithoutwww(desturl)
-						return Response.redirect(destinationurl, 302);
+						const destinationurl = await urlwithoutwww(desturl);
+						return fetch(destinationurl);
 					}
 		} catch(e){
 				console.log( e );
@@ -44,16 +46,19 @@ export const index: Handler =  async function (req, res) {
 					//Convert path to Subdomain
 					if(subdomain){
 						const url = "https://"+path[0]+"."+subdomainUrl+"/"+otherpaths;
-						return Response.redirect(url, 302);
+						const response  = await fetch(url);
+						return(response);
 							}
 					//deliver origin URL
 					else {
-						return Response.redirect(requrl, 302);
+						const response  = await fetch(url);
+						return(response);
 						}
 		} catch(e) {
 				console.log(e);
 		}
 }
+
 
 
 const  converttourl = async(url:any) => {

@@ -7,6 +7,6 @@
   "globals": {
     "RVP": "KV:",
     "SUBDOMAINS": "ENV:['cookie-consent','cms-library','test']",
-    "MAPPED_CDN": "ENV:{'react@16.7.0': 'unpkg.com/react@X/umd/react.production.min.js'}"
+    "MAPPED_CDN": "ENV:{'react@16.7.0.2': 'unpkg.com/react@X/umd/react.production.min.js'}"
   }
 }
