@@ -9,7 +9,6 @@ const exturl  = cdn.match(/((http|un)[^'}\s]*)/);
 
 
 export const index: Handler =  async function (req, res) {
-
 		const url = req.headers.get('host') || '';
 		const path = req.path.split('/');
 		const path2 = req.path.split('/');
@@ -29,6 +28,7 @@ export const index: Handler =  async function (req, res) {
 						const version = path[0].match(/\d+(\.\d+)+/);
 						const desturl =exturl[0].replace(new RegExp('\\X\\b'), version[0]);
 						const destinationurl = await urlwithoutwww(desturl)
+						//return Response.redirect(destinationurl);
 						return fetch(destinationurl);
 					}
 
@@ -37,6 +37,7 @@ export const index: Handler =  async function (req, res) {
 						const desturl =exturl[0].replace(new RegExp('\\@X\\b'), '');
 						const destinationurl = await urlwithoutwww(desturl);
 						return fetch(destinationurl);
+						
 					}
 		} catch(e){
 				console.log( e );
@@ -46,13 +47,13 @@ export const index: Handler =  async function (req, res) {
 					//Convert path to Subdomain
 					if(subdomain){
 						const url = "https://"+path[0]+"."+subdomainUrl+"/"+otherpaths;
-						const response  = await fetch(url);
-						return(response);
+						return fetch(url)
+				
 							}
 					//deliver origin URL
 					else {
-						const response  = await fetch(url);
-						return(response);
+						return fetch(url)
+						//return Response.redirect(url);
 						}
 		} catch(e) {
 				console.log(e);
