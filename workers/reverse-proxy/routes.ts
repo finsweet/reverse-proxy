@@ -7,7 +7,6 @@ const subdomains:any = data.globals.SUBDOMAINS.replace('ENV:', '').split(/[/?#]/
 const exturl  = cdn.match(/((http|un)[^'}\s]*)/);
 
 
-
 export const index: Handler =  async function (req, res) {
 		const url = req.headers.get('host') || '';
 		const path = req.path.split('/');
@@ -17,7 +16,6 @@ export const index: Handler =  async function (req, res) {
 		const requrl:any = await converttourl(req.url);
 		const subdomain = subdomains[0].includes(path[1]);
 		const subdomainUrl:any = await domain(url)
-		
 			try {
 					path.shift();
 					const file = path[0].match(/([^@.]*)/)[0];
@@ -46,13 +44,13 @@ export const index: Handler =  async function (req, res) {
 		try {
 					//Convert path to Subdomain
 					if(subdomain){
-						const url = "https://"+path[0]+"."+subdomainUrl+"/"+otherpaths;
-						return fetch(url)
-				
-							}
+						const destinationURL = "https://"+path[0]+"."+subdomainUrl+"/"+otherpaths;	
+							
+							return await fetch(destinationURL)
+						  }
 					//deliver origin URL
 					else {
-						return fetch(url)
+						return await fetch(url)
 						//return Response.redirect(url);
 						}
 		} catch(e) {
