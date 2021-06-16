@@ -1,7 +1,0 @@
-{
-  "name": "finsweet-reverse-proxy",
-  "zoneid": "8d5ccb5483fadded6766072232ac34d3",
-  "profile": "personal",
-  "entry": "index.ts",
-  "routes": ["webcherries.com/*"]
-}
