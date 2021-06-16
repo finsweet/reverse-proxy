@@ -1,0 +1,11 @@
+{
+  "name": "reverse-proxy-api",
+  "zoneid": "a74d293e80b22abaed101eb3b35b35ae",
+  "profile": "personal",
+  "entry": "index.ts",
+  "routes": ["reverse-proxy.finsweet.com/*"],
+  "globals": {
+    "API_TOKEN": "ENV:NzkzTeQRtwQx6RkNCN7OA06R52gtc1fEmlnNKQP-",
+    "ZONE_ID": "ENV:a74d293e80b22abaed101eb3b35b35ae"
+  }
+}
