@@ -41,9 +41,7 @@ export const handler: Handler = async (req, res) => {
   if (path1 === 'testing') res.send(200, 'ok');
 
   // If the path1 belongs to a proxied SUBDOMAIN.finsweet.com, fetch the data from it
-  if (path1 && subdomains.includes(path1)) {
-    return fetch(`https://${path1}.${DOMAIN}/${buildPath(undefined, wild)}`);
-  }
+  if (path1 && subdomains.includes(path1)) return fetch(`https://${path1}.${DOMAIN}/${buildPath(undefined, wild)}`);
 
   // If no conditions are met, just return the requested path
   return fetch(`https://${WEBFLOW_SUBDOMAIN}.${DOMAIN}/${fullPath}`);
