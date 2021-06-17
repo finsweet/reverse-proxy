@@ -28,10 +28,7 @@ export const handler: Handler = async (req, res) => {
     // Check if the request is made to any proxied SUBDOMAIN.finsweet.com
     const subdomain = subdomains.find((subdomain) => hostname.startsWith(subdomain));
 
-    if (subdomain) {
-      res.send(301, {}, { Location: `https://${MAIN_SUBDOMAIN}.${DOMAIN}/${subdomain}/${fullPath}` });
-    }
-
+    if (subdomain) res.send(301, {}, { Location: `https://${MAIN_SUBDOMAIN}.${DOMAIN}/${subdomain}/${fullPath}` });
     // If not, make sure the hostname points to the main subdomain
     else res.send(301, {}, { Location: `https://${MAIN_SUBDOMAIN}.${DOMAIN}/${fullPath}` });
 
