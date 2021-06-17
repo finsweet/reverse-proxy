@@ -48,7 +48,7 @@ export const handler: Handler = async (req, res) => {
  * @param wild
  * @returns The concatenated path
  */
-const buildPath = (path1: string | undefined, wild: string | undefined) => {
+const buildPath = (path1?: string, wild?: string) => {
   let path = '';
 
   if (path1) path += `${path1}/`;
