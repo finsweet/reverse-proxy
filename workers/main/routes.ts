@@ -35,8 +35,6 @@ export const handler: Handler = async (req, res) => {
     return;
   }
 
-  if (path1 === 'testing') res.send(200, 'ok');
-
   // If the path1 belongs to a proxied SUBDOMAIN.finsweet.com, fetch the data from it
   if (path1 && subdomains.includes(path1)) return fetch(`https://${path1}.${DOMAIN}/${buildPath(undefined, wild)}`);
 
