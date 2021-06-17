@@ -5,7 +5,7 @@
   "entry": "index.ts",
   "routes": ["reverse-proxy.finsweet.com/*"],
   "globals": {
-    "API_TOKEN": "ENV:NzkzTeQRtwQx6RkNCN7OA06R52gtc1fEmlnNKQP-",
+    "API_TOKEN": "ENV:kPBeGabzWHSIPkn29mKv1as2EXnV2HysKhPVQeHJ",
     "ZONE_ID": "ENV:a74d293e80b22abaed101eb3b35b35ae"
   }
 }
