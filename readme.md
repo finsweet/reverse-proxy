@@ -1,50 +1,11 @@
-# Worktop Examples
+# Finsweet's Reverse Proxy
 
-> WIP – more on the way~!
+This repository contains the Cloudflare Worker script for reverse proxying all the Finsweet subdomains under the main finsweet.com domain, as well as documentation on how to properly manage them.
 
-* **[`workers/basic`](/examples/workers/basic)**<br>_Quick start with two `GET` requests._
-* **[`workers/kv-todos`](/examples/workers/kv-todos)**<br>_A RESTful resource endpoint, tied to a KV Namespace._
+## DNS Management
 
-## Setup
+The DNS of the finsweet.com domain are managed from Cloudflare. You can access it by asking @alexiglesias to include you as a team member of the Cloudflare account.
 
-All examples are managed by [`cfw`](https://github.com/lukeed/cfw) for their build and deploy phases, but you can easily use [`wrangler`](https://developers.cloudflare.com/workers/cli-wrangler) instead! However, instructions are intended for `cfw` use only.
+In there, you will notice that some DNS records are set to be proxied, and some not. Continue reading to know the differences between them.
 
-***Installation***
-
-> **Note:** You may skip this if you ran `pnpm install` from the project root.
-
-```sh
-$ pnpm install
-# or
-$ yarn install
-# or
-$ npm install
-```
-
-***Build***
-
-> **Note:** Must be run from this (`/examples`) directory
-
-```sh
-$ pnpm run build
-# or
-$ yarn run build
-# or
-$ npm run build
-```
-
-***Deploy***
-
-> **Important:** You must set up your `cfw` credentials and update all `workers/*/cfw.json` files.
-
-```sh
-$ pnpm run deploy
-# or
-$ yarn run deploy
-# or
-$ npm run deploy
-```
-
-## License
-
-MIT
+![Proxied DNS](./images/proxied-dns-list.png)
