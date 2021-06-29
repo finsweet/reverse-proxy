@@ -4,8 +4,14 @@ This repository contains the Cloudflare Worker script for reverse proxying all t
 
 Contents:
 
-1. [DNS Management](#dns-management)
-   1.1. [Difference between Proxied / Unproxied DNS](#difference-between-proxied--unproxied-dns)
+1. [DNS Management](#dns-management).
+
+   1. [Difference between Proxied / Unproxied DNS](#difference-between-proxied--unproxied-dns).
+   2. [Why are the Webflow sites poiting to proxy.webflow.com instead of proxy-ssl.webflow.com?](#why-are-the-webflow-sites-poiting-to-proxywebflowcom-instead-of-proxy-sslwebflowcom)
+
+2. [Setting up a new Webflow site](#setting-up-a-new-webflow-site)
+
+3. [FAQ](#faq)
 
 ## DNS Management
 
@@ -122,3 +128,27 @@ In there, you will notice a `SUBDOMAINS` variable that contains a comma-separate
 ![Add Worker subdomain](./images/add-subdomain-worker.png)
 
 Hit on **Save**, and you're done! Don't forget to test it out 💪.
+
+## FAQ
+
+### Why can't we reverse-proxy e-commerce sites?
+
+Webflow keeps track of the user's actions in e-commerce sites with cookies and [CSRF tokens](https://portswigger.net/web-security/csrf/tokens) to prevent any sort of malicious behaviors.
+
+Every time that an action is performed by the user (Adding an product to the cart, calculating the checkout value, filling the payment form, etc), Webflow makes a request to their servers and validates it. The problem comes when Webflow detects that the page where the user is acting is not the one that it's supposed to be (`www.finsweet.com/SUBDOMAIN` instead of `SUBDOMAIN.finsweet.com`) and blocks the action.
+
+### I've published some changes but they don't reflect on the live domain
+
+This is probably caused by Cloudflare's caching, read [Purge cache on publish](#optional-purge-cache-on-publish) to learn how to bypass it.
+
+### I've set up a redirect in the Webflow project but it's not working
+
+All redirects to external sites (Example: from `/page-path` to `https://www.google.com`) work correctly as of the day of writing this article.
+
+On the other hand, redirects under the same domain (Example: from `/page-path-1` to `/page-path-2`) will cause the content to be served on both paths. This is something that will be fixed soon.
+
+In the meantime, you don't have to worry about the SEO impact on it, as the [Global Canonical Tag URL](#seo-tab) makes sure that the crwaling bots don't consider it as duplicated content.
+
+### I can't access Cloudflare
+
+Contact @alexiglesias and he will invite you to join the team.
