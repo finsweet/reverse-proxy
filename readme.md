@@ -71,7 +71,7 @@ This will assure that all relative URLs accross the project point correctly to t
 
 #### [Optional] Purge Cache on publish
 
-By default, Cloudflare adds a 4h cache to all the assets that are being reverse-proxied. This means that, if you publish any changes to the Webflow project (the `.webflow.io` staging domain is not cached, only the live `SUBDOMAIN_NAME.finsweet.com` version), it can take up to 4h for users to see the new changes.
+By default, Cloudflare adds a 4h cache to all the assets that are being reverse-proxied. This means that if you publish any changes to the Webflow project (the `.webflow.io` staging domain is not cached, only the live `SUBDOMAIN_NAME.finsweet.com` version), it can take up to 4h for users to see the new changes.
 
 To prevent this, there's the option of immediately purging the cache whenever a Finsweet site is published.
 
@@ -82,3 +82,36 @@ https://reverse-proxy.finsweet.com/purge-cache
 ```
 
 ![Hosting Tab](./images/site-publish-webhook.PNG)
+
+### Creating the subdomain's DNS record
+
+Easy step, you just need to move to the **DNS** tab in Cloudflare and click to `+ Add record`.
+
+Enter the following settings:
+
+- Type: `CNAME`.
+- Name: The `SUBDOMAIN_NAME`.
+- Target: `proxy.webflow.com`.
+- TTL: Auto.
+- Proxy status: Proxied.
+
+And Save it.
+
+![Add DNS](./images/add-dns.png)
+
+### Adding the to-be-proxied subdomain to the Cloudflare Worker environment
+
+Last step, move to the **Workers** tab in Cloudflare and click on the `reverse-proxy` worker.
+
+![Open Reverse Proxy Worker](./images/open-worker.png)
+
+In it, locate the **Settings** tab and click on `Edit variables`.
+
+![Edit Worker variables](./images/edit-worker-variables.png)
+
+In there, you will notice a `SUBDOMAINS` variable that contains a comma-separated list of all the reverse-proxied subdomains. Add here the new subdomain, making sure that:
+
+- The subdomain it's not repeated (it doesn't exist already in the list).
+- You use a comma `,` to separate each subdomain. The white spaces don't matter and have no effect.
+
+![Add Worker subdomain](./images/add-subdomain-worker.png)
