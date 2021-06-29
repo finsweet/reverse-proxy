@@ -33,10 +33,10 @@ Any DNS that is set to point to a non-Webflow destination, like `cdn.finsweet.co
 
 There are two reasons for this:
 
-1.  How Webflow generates the SSL certificate to all the binded domains.
+1.  How Webflow generates the SSL certificate to all the pointed domains.
 2.  The requirements for an SSL Handshake to be valid.
 
-#### How Webflow generates the SSL certificate to all the binded domains
+#### How Webflow generates the SSL certificate to all the pointed domains
 
 When pointing a DNS record to `proxy-ssl.webflow.com`, Webflow automatically creates an SSL certificate that is valid for 3 months, and auto-renews it when this period is coming to an end.
 
