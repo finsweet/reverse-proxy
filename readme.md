@@ -7,7 +7,7 @@ Contents:
 1. [DNS Management](#dns-management).
 
    1. [Difference between Proxied / Unproxied DNS](#difference-between-proxied--unproxied-dns).
-   2. [Why are the Webflow sites poiting to proxy.webflow.com instead of proxy-ssl.webflow.com?](#why-are-the-webflow-sites-poiting-to-proxywebflowcom-instead-of-proxy-sslwebflowcom)
+   2. [Why are the Webflow sites pointing to proxy.webflow.com instead of proxy-ssl.webflow.com?](#why-are-the-webflow-sites-pointing-to-proxywebflowcom-instead-of-proxy-sslwebflowcom)
 
 2. [Setting up a new Webflow site](#setting-up-a-new-webflow-site)
 
@@ -23,13 +23,13 @@ In there, you will notice that some DNS records are set to be proxied, and some 
 
 ### Difference between Proxied / Unproxied DNS
 
-The main difference resides wether Cloudflare will intercept any request to the destination before it reaches it.
+The main difference resides whether Cloudflare will intercept any request to the destination before it reaches it.
 
 As a rule of thumb, only the reverse-proxied subdomains need to be proxied to intercept any request to them before it reaches Webflow's servers.
 
-Any DNS that is set to point a non-Webflow destination, like `cdn.finsweet.com` should be set to `DNS only`.
+Any DNS that is set to point to a non-Webflow destination, like `cdn.finsweet.com` should be set to `DNS only`.
 
-### Why are the Webflow sites poiting to proxy.webflow.com instead of proxy-ssl.webflow.com?
+### Why are the Webflow sites pointing to proxy.webflow.com instead of proxy-ssl.webflow.com?
 
 There are two reasons for this:
 
@@ -76,7 +76,7 @@ This will make sure Google doesn't consider any content outside of the `www.fins
 #### Custom Code Tab
 
 In the **Custom Code** tab, add the same `https://www.finsweet.com/SUBDOMAIN_NAME` URL as the **Href Prefix**.
-This will assure that all relative URLs accross the project point correctly to the reverse-proxied path instead of the original subdomain.
+This will assure that all relative URLs across the project point correctly to the reverse-proxied path instead of the original subdomain.
 
 ![Hosting Tab](./images/custom-code-tab.PNG)
 
@@ -147,7 +147,7 @@ All redirects to external sites (Example: from `/page-path` to `https://www.goog
 
 On the other hand, redirects under the same domain (Example: from `/page-path-1` to `/page-path-2`) will cause the content to be served on both paths. This is something that will be fixed soon.
 
-In the meantime, you don't have to worry about the SEO impact on it, as the [Global Canonical Tag URL](#seo-tab) makes sure that the crwaling bots don't consider it as duplicated content.
+In the meantime, you don't have to worry about the SEO impact on it, as the [Global Canonical Tag URL](#seo-tab) makes sure that the crawling bots don't consider it as duplicated content.
 
 ### I can't access Cloudflare
 
