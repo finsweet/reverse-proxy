@@ -8,6 +8,6 @@
     "DOMAIN": "ENV:finsweet.com",
     "MAIN_SUBDOMAIN": "ENV:www",
     "WEBFLOW_SUBDOMAIN": "ENV:wf",
-    "SUBDOMAINS": "ENV:weglotuikit, cal-invite, class-adder-script-writer, class-adder, client-first, cms-library-beginner, cms-library-howto, cms-library-script-writer, cms-library, cookie-consent, designers, growth, gtag-ecom-cloneable, gtag-script-writer, gtag, hacks, internal, joe, lottie-expert, lottieflow, memberstack-script-writer, salesdemo, scrollbar-styler, strategy, sweet-text, sweetjs, tomidetest"
+    "SUBDOMAINS": "ENV:weglotuikit, cal-invite, class-adder-script-writer, class-adder, client-first, cms-library-beginner, cms-library-howto, cms-library-script-writer, cms-library, cookie-consent, designers, growth, gtag-script-writer, gtag, hacks, internal, joe, lottie-expert, lottieflow, memberstack-script-writer, salesdemo, scrollbar-styler, strategy, sweet-text, sweetjs, tomidetest"
   }
 }
