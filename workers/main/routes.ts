@@ -42,7 +42,14 @@ export const handler: Handler = async (req, res) => {
   }
 
   // If no conditions are met, just return the requested path
-  return fetch(`https://${WEBFLOW_SUBDOMAIN}.${DOMAIN}/${fullPath}`);
+  const response = await fetch(`https://${WEBFLOW_SUBDOMAIN}.${DOMAIN}/${fullPath}`);
+
+  if (response.redirected && response.url && !response.url.includes(`${WEBFLOW_SUBDOMAIN}.${DOMAIN}`)) {
+    res.send(301, {}, { location: response.url });
+    return;
+  }
+
+  return response;
 };
 
 /**

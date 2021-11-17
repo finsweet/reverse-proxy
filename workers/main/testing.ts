@@ -16,7 +16,14 @@ export const testing: Handler = async (req, res) => {
 
   const fullPath = buildPath(path1, wild, search);
 
-  res.send(200, JSON.stringify({ req, fullPath }));
+  const response = await fetch('https://wf.finsweet.com/2020');
+
+  if (response.redirected && response.url) {
+    res.send(301, {}, { location: response.url });
+    return;
+  }
+
+  return response;
 };
 
 /**
