@@ -19,10 +19,11 @@ export const handler: Handler = async (req, res) => {
   const {
     hostname,
     params: { path1, wild },
+    search,
   } = req;
 
   // Build the full path
-  const fullPath = buildPath(path1, wild);
+  const fullPath = buildPath(path1, wild, search);
 
   if (hostname !== `${MAIN_SUBDOMAIN}.${DOMAIN}`) {
     // Check if the request is made to any proxied SUBDOMAIN.finsweet.com
@@ -36,7 +37,9 @@ export const handler: Handler = async (req, res) => {
   }
 
   // If the path1 belongs to a proxied SUBDOMAIN.finsweet.com, fetch the data from it
-  if (path1 && subdomains.includes(path1)) return fetch(`https://${path1}.${DOMAIN}/${buildPath(undefined, wild)}`);
+  if (path1 && subdomains.includes(path1)) {
+    return fetch(`https://${path1}.${DOMAIN}/${buildPath(undefined, wild, search)}`);
+  }
 
   // If no conditions are met, just return the requested path
   return fetch(`https://${WEBFLOW_SUBDOMAIN}.${DOMAIN}/${fullPath}`);
@@ -48,11 +51,12 @@ export const handler: Handler = async (req, res) => {
  * @param wild
  * @returns The concatenated path
  */
-const buildPath = (path1?: string, wild?: string) => {
+const buildPath = (path1?: string, wild?: string, search?: string) => {
   let path = '';
 
   if (path1) path += `${path1}/`;
   if (wild) path += `${wild}/`;
+  if (search) path += `${search}`;
 
   return path;
 };
