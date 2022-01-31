@@ -89,7 +89,7 @@ To prevent this, there's the option of immediately purging the cache whenever a 
 To do so, move to the **Integrations** tab and create a **Site Publish** Webhook with the following URL:
 
 ```
-https://reverse-proxy.finsweet.com/purge-cache
+https://api.finsweet.com/cache/purge
 ```
 
 ![Hosting Tab](./images/site-publish-webhook.PNG)
