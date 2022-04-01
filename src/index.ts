@@ -1,6 +1,6 @@
 import { Router, compose } from 'worktop';
 import { start } from 'worktop/cfw';
-import * as Cache from 'worktop/cfw.cache';
+// import * as Cache from 'worktop/cfw.cache';
 import type { Context } from './context';
 
 import { handler } from './main';
@@ -16,9 +16,10 @@ API.prepare = compose(
       const ms = Date.now() - context.timestamp;
       res.headers.set('x-response-time', ms);
     });
-  },
+  }
 
-  Cache.sync()
+  // Temporarily disabled cache syncing until the side effects are cleared
+  // Cache.sync()
 );
 
 API.add('GET', '/', handler);
