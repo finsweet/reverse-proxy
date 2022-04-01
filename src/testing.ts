@@ -1,26 +1,23 @@
-import type { Handler } from 'worktop';
-
-// Constants
+import type { Handler } from './context';
+import { reply } from 'worktop/response';
 
 /**
- * Main Reverse Proxy Handler
- * @param req
- * @param res
+ * Testing Reverse Proxy Handler
+ * @param request
+ * @param context
  */
-export const testing: Handler = async (req, res) => {
+export const testing: Handler = async (request, context) => {
   const {
-    hostname,
     params: { path1, wild },
-    search,
-  } = req;
+    url: { hostname, search },
+  } = context;
 
   const fullPath = buildPath(path1, wild, search);
 
   const response = await fetch('https://wf.finsweet.com/2020');
 
   if (response.redirected && response.url) {
-    res.send(301, {}, { location: response.url });
-    return;
+    return reply(301, {}, { location: response.url });
   }
 
   return response;

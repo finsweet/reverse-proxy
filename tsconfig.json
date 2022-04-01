@@ -1,19 +1,27 @@
 {
   "compilerOptions": {
     "strict": true,
-    "target": "esnext",
-    "moduleResolution": "node",
+    "allowJs": true,
+    "module": "esnext",
+    "target": "es2021",
+    "noImplicitAny": true,
+    "keyofStringsOnly": true,
+    "resolveJsonModule": true,
+    "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["esnext", "dom.iterable", "webworker"],
-    "strictFunctionTypes": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
     "strictNullChecks": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true
+    "importsNotUsedAsValues": "error",
+    "removeComments": true,
+    "sourceMap": false,
+    "checkJs": true,
+    "noEmit": true,
+    "baseUrl": "./",
+    "paths": {
+      "$lib/*": ["./src/lib/*"]
+    }
   },
-  "include": [
-    "workers/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["@types", "src"],
+  "exclude": ["build", "node_modules"]
 }

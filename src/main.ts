@@ -1,39 +1,30 @@
 import { extractCommaSeparatedValues } from '@finsweet/ts-utils';
-import type { Handler } from 'worktop';
-
-// Types
-declare const DOMAIN: string;
-declare const MAIN_SUBDOMAIN: string;
-declare const WEBFLOW_SUBDOMAIN: string;
-declare const SUBDOMAINS: string;
-
-// Constants
-const subdomains = extractCommaSeparatedValues(SUBDOMAINS);
+import { reply } from 'worktop/response';
+import type { Handler } from './context';
 
 /**
  * Main Reverse Proxy Handler
- * @param req
- * @param res
+ * @param request
+ * @param context
  */
-export const handler: Handler = async (req, res) => {
+export const handler: Handler = async (request, context) => {
   const {
-    hostname,
     params: { path1, wild },
-    search,
-  } = req;
+    url: { hostname, search },
+    bindings: { DOMAIN, MAIN_SUBDOMAIN, WEBFLOW_SUBDOMAIN, SUBDOMAINS },
+  } = context;
 
-  // Build the full path
+  const subdomains = extractCommaSeparatedValues(SUBDOMAINS);
   const fullPath = buildPath(path1, wild, search);
 
   if (hostname !== `${MAIN_SUBDOMAIN}.${DOMAIN}`) {
     // Check if the request is made to any proxied SUBDOMAIN.finsweet.com
     const subdomain = subdomains.find((subdomain) => hostname.startsWith(subdomain));
 
-    if (subdomain) res.send(301, {}, { Location: `https://${MAIN_SUBDOMAIN}.${DOMAIN}/${subdomain}/${fullPath}` });
-    // If not, make sure the hostname points to the main subdomain
-    else res.send(301, {}, { Location: `https://${MAIN_SUBDOMAIN}.${DOMAIN}/${fullPath}` });
+    if (subdomain) return reply(301, {}, { Location: `https://${MAIN_SUBDOMAIN}.${DOMAIN}/${subdomain}/${fullPath}` });
 
-    return;
+    // If not, proceed with the original request
+    return fetch(request);
   }
 
   // If the path1 belongs to a proxied SUBDOMAIN.finsweet.com, fetch the data from it
@@ -44,9 +35,9 @@ export const handler: Handler = async (req, res) => {
   // If no conditions are met, just return the requested path
   const response = await fetch(`https://${WEBFLOW_SUBDOMAIN}.${DOMAIN}/${fullPath}`);
 
+  // Check for Webflow redirects
   if (response.redirected && response.url && !response.url.includes(`${WEBFLOW_SUBDOMAIN}.${DOMAIN}`)) {
-    res.send(301, {}, { location: response.url });
-    return;
+    return reply(301, {}, { location: response.url });
   }
 
   return response;
