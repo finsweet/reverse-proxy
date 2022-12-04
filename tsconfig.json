@@ -1,27 +1,6 @@
 {
+  "extends": "@finsweet/tsconfig",
   "compilerOptions": {
-    "strict": true,
-    "allowJs": true,
-    "module": "esnext",
-    "target": "es2021",
-    "noImplicitAny": true,
-    "keyofStringsOnly": true,
-    "resolveJsonModule": true,
-    "strictBindCallApply": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "strictNullChecks": true,
-    "importsNotUsedAsValues": "error",
-    "removeComments": true,
-    "sourceMap": false,
-    "checkJs": true,
-    "noEmit": true,
-    "baseUrl": "./",
-    "paths": {
-      "$lib/*": ["./src/lib/*"]
-    }
-  },
-  "include": ["@types", "src"],
-  "exclude": ["build", "node_modules"]
+    "types": ["@cloudflare/workers-types"]
+  }
 }

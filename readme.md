@@ -13,6 +13,12 @@ Contents:
 
 3. [FAQ](#faq)
 
+## Deploying updates
+
+**Important!!**
+
+Before deploying new updates to the reverse proxy worker using `pnpm run deploy`, make sure all the env variables in `wrangler.toml` are in sync with the ones in the Cloudflare Worker dashboard.
+
 ## DNS Management
 
 The DNS of the `finsweet.com` domain are managed from Cloudflare. You can access it by asking @alexiglesias to include you as a team member of the Cloudflare account.
@@ -62,20 +68,20 @@ The process is split in the following steps:
 
 #### Hosting Tab
 
-In the **Hosting** tab, set up the project domain as `SUBDOMAIN_NAME.finsweet.com`. After the setup is done correctly, all the traffic will be served under `finsweet.com/SUBDOMAIN_NAME/`.
+In the **Hosting** tab, set up the project domain as `SUBDOMAIN_NAME.finsweet.com`. After the setup is done correctly, all the traffic will be served under `finsweet.com/SUBDOMAIN_NAME`.
 
 ![Hosting Tab](./images/hosting-tab.PNG)
 
 #### SEO Tab
 
-In the **SEO** tab, add `https://www.finsweet.com/SUBDOMAIN_NAME` as the **Global Canonical Tag URL** (note the `https://www.` in front of the domain, this is mandatory).
-This will make sure Google doesn't consider any content outside of the `www.finsweet.com` main domain to be duplicated.
+In the **SEO** tab, add `https://finsweet.com/SUBDOMAIN_NAME` as the **Global Canonical Tag URL** (note the `https://` in front of the domain, this is mandatory).
+This will make sure Google doesn't consider any content outside of the `finsweet.com` main domain to be duplicated.
 
 ![SEO Tab](./images/canonical-tag.PNG)
 
 #### Custom Code Tab
 
-In the **Custom Code** tab, add the same `https://www.finsweet.com/SUBDOMAIN_NAME` URL as the **Href Prefix**.
+In the **Custom Code** tab, add the same `https://finsweet.com/SUBDOMAIN_NAME` URL as the **Href Prefix**.
 This will assure that all relative URLs across the project point correctly to the reverse-proxied path instead of the original subdomain.
 
 ![Hosting Tab](./images/custom-code-tab.PNG)
@@ -135,19 +141,11 @@ Hit on **Save**, and you're done! Don't forget to test it out 💪.
 
 Webflow keeps track of the user's actions in e-commerce sites with cookies and [CSRF tokens](https://portswigger.net/web-security/csrf/tokens) to prevent any sort of malicious behaviors.
 
-Every time that an action is performed by the user (Adding an product to the cart, calculating the checkout value, filling the payment form, etc), Webflow makes a request to their servers and validates it. The problem comes when Webflow detects that the page where the user is acting is not the one that it's supposed to be (`www.finsweet.com/SUBDOMAIN` instead of `SUBDOMAIN.finsweet.com`) and blocks the action.
+Every time that an action is performed by the user (Adding an product to the cart, calculating the checkout value, filling the payment form, etc), Webflow makes a request to their servers and validates it. The problem comes when Webflow detects that the page where the user is acting is not the one that it's supposed to be (`finsweet.com/SUBDOMAIN` instead of `SUBDOMAIN.finsweet.com`) and blocks the action.
 
 ### I've published some changes but they don't reflect on the live domain
 
 This is probably caused by Cloudflare's caching, read [Purge cache on publish](#optional-purge-cache-on-publish) to learn how to bypass it.
-
-### I've set up a redirect in the Webflow project but it's not working
-
-All redirects to external sites (Example: from `/page-path` to `https://www.google.com`) work correctly as of the day of writing this article.
-
-On the other hand, redirects under the same domain (Example: from `/page-path-1` to `/page-path-2`) will cause the content to be served on both paths. This is something that will be fixed soon.
-
-In the meantime, you don't have to worry about the SEO impact on it, as the [Global Canonical Tag URL](#seo-tab) makes sure that the crawling bots don't consider it as duplicated content.
 
 ### I can't access Cloudflare
 
