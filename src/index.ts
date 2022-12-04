@@ -1,35 +1,76 @@
-import { Router, compose } from 'worktop';
-import { start } from 'worktop/cfw';
-// import * as Cache from 'worktop/cfw.cache';
+import { Hono } from 'hono';
 import type { Context } from './context';
+import { build_url, create_origin, has_trailing_slash, Matcher } from './helpers';
 
-import { handler } from './main';
-import { testing } from './testing';
+const app = new Hono<Context>();
 
-const API = new Router<Context>();
+app.get('*', async (c) => {
+  const { DOMAIN, WEBFLOW_SUBDOMAIN, SUBDOMAINS } = c.env;
+  const { origin, hostname, pathname, search } = new URL(c.req.url);
 
-API.prepare = compose(
-  (_, context) => {
-    context.timestamp = Date.now();
+  const main_origin = create_origin(DOMAIN);
 
-    context.defer((res) => {
-      const ms = Date.now() - context.timestamp;
-      res.headers.set('x-response-time', ms);
-    });
+  const paths = pathname.split('/').filter(Boolean);
+
+  const matcher = new Matcher(SUBDOMAINS);
+
+  // Handle when hostname has a subdomain
+  if (hostname !== DOMAIN) {
+    // Subdomain is reverse proxied
+    const match = matcher.subdomain_to_path(hostname);
+    if (match) {
+      const redirect_url = build_url([main_origin, match, paths], search);
+
+      return c.redirect(redirect_url, 301);
+    }
+
+    // Subdomain is the main Webflow project
+    if (hostname.startsWith(WEBFLOW_SUBDOMAIN)) {
+      const redirect_url = build_url([main_origin, paths], search);
+
+      return c.redirect(redirect_url, 301);
+    }
+
+    // Subdomain is not reverse proxied
+    return fetch(c.req);
   }
 
-  // Temporarily disabled cache syncing until the side effects are cleared
-  // Cache.sync()
-);
+  // Handle trailing slashes
+  if (paths.length && has_trailing_slash(pathname)) {
+    const redirect_url = build_url([origin, paths], search);
 
-API.add('GET', '/', handler);
+    return c.redirect(redirect_url, 301);
+  }
 
-API.add('GET', '/testing', testing);
-API.add('GET', '/testing/*', testing);
-API.add('GET', '/testing/:path1', testing);
-API.add('GET', '/testing/:path1/*', testing);
+  // Path matches reverse proxied subdomain
+  const match = matcher.path_to_subdomain(paths);
+  if (match) {
+    const { subdomain, wildcard_paths } = match;
 
-API.add('GET', '/:path1', handler);
-API.add('GET', '/:path1/*', handler);
+    const target_origin = create_origin(`${subdomain}.${DOMAIN}`);
+    const target_url = build_url([target_origin, wildcard_paths], search);
 
-export default start(API.run);
+    const response = await fetch(target_url);
+
+    // Handle redirected responses
+    if (response.redirected && response.url) {
+      return c.redirect(response.url, 301);
+    }
+
+    return response;
+  }
+
+  // If no subdomains are matched, fetch from the main Webflow project
+  const webflow_origin = create_origin(`${WEBFLOW_SUBDOMAIN}.${DOMAIN}`);
+  const target_url = build_url([webflow_origin, paths], search);
+  const response = await fetch(target_url);
+
+  // Handle redirected responses
+  if (response.redirected && response.url) {
+    return c.redirect(response.url, 301);
+  }
+
+  return response;
+});
+
+export default app;

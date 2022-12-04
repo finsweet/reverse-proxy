@@ -1,14 +1,8 @@
 name = "reverse-proxy"
-account_id = ""
-zone_id = ""
-route = "*finsweet.com/*"
-type = "javascript"
-compatibility_date = "2022-04-01"
+main = "src/index.ts"
+compatibility_date = "2022-12-02"
 
-[build]
-command = "npm run build"
-
-[build.upload]
-format = "modules"
-main = "./index.mjs"
-dir = "build"
+[vars]
+DOMAIN = "finsweet.com"
+WEBFLOW_SUBDOMAIN = "wf"
+SUBDOMAINS = "weglotuikit, cal-invite, class-adder-script-writer, class-adder, client-first, cms-library-beginner, cms-library-howto, cms-library-script-writer, cms-library, cookie-consent, designers, growth, gtag-script-writer, gtag, hacks-jquery, internal, joe, lottie-expert, lottieflow, memberstack-script-writer, salesdemo, scrollbar-styler, strategy, sweet-text, sweetjs, extension, attributes, ncc, 2021, fin-pro, jquery, developers, social, greenhouse, hacks-typescript, attributes.combos"
