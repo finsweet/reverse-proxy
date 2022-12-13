@@ -4,20 +4,30 @@ This repository contains the Cloudflare Worker script for reverse proxying all t
 
 Contents:
 
-1. [DNS Management](#dns-management).
+1. [Deploying updates](#deploying-updates)
 
-   1. [Difference between Proxied / Unproxied DNS](#difference-between-proxied--unproxied-dns).
+2. [Flowchart](#flowchart)
+
+3. [DNS Management](#dns-management)
+
+   1. [Difference between Proxied / Unproxied DNS](#difference-between-proxied--unproxied-dns)
    2. [Why are the Webflow sites pointing to proxy.webflow.com instead of proxy-ssl.webflow.com?](#why-are-the-webflow-sites-pointing-to-proxywebflowcom-instead-of-proxy-sslwebflowcom)
 
-2. [Setting up a new Webflow site](#setting-up-a-new-webflow-site)
+4. [Setting up a new Webflow site](#setting-up-a-new-webflow-site)
 
-3. [FAQ](#faq)
+5. [FAQ](#faq)
 
 ## Deploying updates
 
 **Important!!**
 
 Before deploying new updates to the reverse proxy worker using `pnpm run deploy`, make sure all the env variables in `wrangler.toml` are in sync with the ones in the Cloudflare Worker dashboard.
+
+## Flowchart
+
+This flowchart summarizes the internal logic of the reverse proxy:
+
+![Reverse proxy flowchart](./flowchart/flowchart.svg)
 
 ## DNS Management
 
