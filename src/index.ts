@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+
 import type { Context } from './context';
 import { build_url, create_origin, has_trailing_slash, Matcher } from './helpers';
 
@@ -32,7 +33,7 @@ app.get('*', async (c) => {
     }
 
     // Subdomain is not reverse proxied
-    return fetch(c.req);
+    return fetch(c.req.raw);
   }
 
   // Handle trailing slashes

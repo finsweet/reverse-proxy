@@ -19,19 +19,19 @@
     "update": "pnpm update -i -L -r"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20221111.1",
-    "@finsweet/eslint-config": "^1.2.0",
-    "@finsweet/tsconfig": "^1.2.0",
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
-    "@typescript-eslint/parser": "^5.45.0",
-    "eslint": "^8.29.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.0",
-    "typescript": "^4.9.3",
-    "wrangler": "^2.5.0"
+    "@cloudflare/workers-types": "^4.20240312.0",
+    "@finsweet/eslint-config": "^2.0.7",
+    "@finsweet/tsconfig": "^1.3.4",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.2",
+    "wrangler": "^3.33.0"
   },
   "dependencies": {
-    "hono": "^2.5.7"
+    "hono": "^4.1.0"
   }
 }
