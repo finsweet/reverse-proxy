@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "wrangler dev",
-    "deploy": "wrangler publish",
+    "deploy": "wrangler deploy",
     "lint": "eslint --ignore-path .gitignore ./src && prettier --check ./src",
     "check": "tsc --noEmit",
     "format": "prettier --write .",
