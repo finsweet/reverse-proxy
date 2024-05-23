@@ -5,7 +5,7 @@ import { build_url, create_origin, has_trailing_slash, Matcher } from './helpers
 
 const app = new Hono<Context>();
 
-app.get('*', async (c) => {
+app.use('*', async (c) => {
   const { DOMAIN, WEBFLOW_SUBDOMAIN, SUBDOMAINS } = c.env;
   const { origin, hostname, pathname, search } = new URL(c.req.url);
 
