@@ -1,13 +1,19 @@
 import { Hono } from 'hono';
 
+import { MAINTENANCE_SCREEN } from './constants';
 import type { Context } from './context';
 import { build_url, create_origin, has_trailing_slash, Matcher } from './helpers';
 
 const app = new Hono<Context>();
 
 app.use('*', async (c) => {
-  const { DOMAIN, WEBFLOW_SUBDOMAIN, SUBDOMAINS } = c.env;
-  const { origin, hostname, pathname, search } = new URL(c.req.url);
+  const { DOMAIN, WEBFLOW_SUBDOMAIN, SUBDOMAINS, MAINTENANCE_HREF } = c.env;
+  const { origin, hostname, pathname, search, href } = new URL(c.req.url);
+
+  const is_under_maintenance = MAINTENANCE_HREF && MAINTENANCE_HREF === href;
+  if (is_under_maintenance) {
+    return fetch(MAINTENANCE_SCREEN);
+  }
 
   const main_origin = create_origin(DOMAIN);
 

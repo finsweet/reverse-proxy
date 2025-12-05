@@ -1,0 +1,19 @@
+{
+  "name": "reverse-proxy",
+  "main": "src/index.ts",
+  "compatibility_date": "2022-12-02",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "*finsweet.com/*",
+      "zone_name": "finsweet.com"
+    }
+  ],
+
+  "vars": {
+    "DOMAIN": "finsweet.com",
+    "SUBDOMAINS": "weglotuikit, cal-invite, client-first, cms-library-beginner, cms-library-script-writer, cms-library, cookie-consent, growth, gtag, hacks-jquery, lottie-expert, lottieflow, strategy, sweetjs, extension, attributes, attributes.v1, fin-pro, jquery, developers, greenhouse, hacks-typescript, recommended, open-source.ts-utils, security, junglejam, cms-bridge, seo, components, components.changelog, client-first.certification, really-fast-search",
+    "WEBFLOW_SUBDOMAIN": "wf"
+  }
+}
