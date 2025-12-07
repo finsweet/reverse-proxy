@@ -10,7 +10,7 @@ app.use('*', async (c) => {
   const { DOMAIN, WEBFLOW_SUBDOMAIN, SUBDOMAINS, MAINTENANCE_HREF } = c.env;
   const { origin, hostname, pathname, search, href } = new URL(c.req.url);
 
-  const is_under_maintenance = MAINTENANCE_HREF && MAINTENANCE_HREF === href;
+  const is_under_maintenance = MAINTENANCE_HREF && href.startsWith(MAINTENANCE_HREF);
   if (is_under_maintenance) {
     return fetch(MAINTENANCE_SCREEN);
   }
