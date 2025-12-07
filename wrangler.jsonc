@@ -13,7 +13,7 @@
 
   "vars": {
     "DOMAIN": "finsweet.com",
-    "SUBDOMAINS": "weglotuikit, cal-invite, client-first, cms-library-beginner, cms-library-script-writer, cms-library, cookie-consent, growth, gtag, hacks-jquery, lottie-expert, lottieflow, strategy, sweetjs, extension, attributes, attributes.v1, fin-pro, jquery, developers, greenhouse, hacks-typescript, recommended, open-source.ts-utils, security, junglejam, cms-bridge, seo, components, components.changelog, client-first.certification, really-fast-search",
+    "SUBDOMAINS": "weglotuikit, cal-invite, client-first, cms-library, cookie-consent, lottieflow, extension, attributes, attributes.v1, hacks-typescript, recommended, open-source.ts-utils, security, cms-bridge, seo, components, components.changelog, client-first.certification, really-fast-search",
     "WEBFLOW_SUBDOMAIN": "wf"
   }
 }
