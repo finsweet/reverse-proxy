@@ -32,9 +32,11 @@ export const has_trailing_slash = (pathname: string) => /\/+$/.test(pathname);
  * "random.finsweet.com" => undefined
  */
 export const subdomain_to_path = (hostname: string) => {
-  const match = SUBDOMAINS_DATA.find((sub_subdomains) =>
-    hostname.startsWith(sub_subdomains.join('.'))
-  );
+  const match = SUBDOMAINS_DATA.find((sub_subdomains) => {
+    const subdomain = sub_subdomains.join('.');
+
+    return hostname.startsWith(`${subdomain}.`);
+  });
 
   return match;
 };

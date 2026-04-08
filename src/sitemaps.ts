@@ -32,15 +32,18 @@ export const rewrite_sitemap_locs = async (response: Response) => {
 
   const handler = new LocTextHandler();
   const transformed = new HTMLRewriter().on('loc', handler).transform(response);
-  const transformed_body = await transformed.text();
 
-  const headers = new Headers(response.headers);
+  const headers = new Headers(transformed.headers);
+
   headers.delete('content-length');
   headers.delete('content-encoding');
+  headers.delete('etag');
+  headers.delete('last-modified');
+  headers.delete('content-md5');
 
-  return new Response(transformed_body, {
-    status: response.status,
-    statusText: response.statusText,
+  return new Response(transformed.body, {
+    status: transformed.status,
+    statusText: transformed.statusText,
     headers,
   });
 };

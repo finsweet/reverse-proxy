@@ -28,7 +28,7 @@ app.use('*', async (c) => {
     }
 
     // Subdomain is the main Webflow project
-    if (hostname.startsWith(WEBFLOW_SUBDOMAIN)) {
+    if (hostname.startsWith(`${WEBFLOW_SUBDOMAIN}.`)) {
       const redirect_url = build_url(MAIN_ORIGIN, paths, search);
 
       return c.redirect(redirect_url, 301);
