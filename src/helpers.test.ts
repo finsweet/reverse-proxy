@@ -28,6 +28,10 @@ describe('has_trailing_slash', () => {
 });
 
 describe('subdomain_to_path', () => {
+  test('maps the main webflow subdomain to the root path', () => {
+    expect(subdomain_to_path('wf.finsweet.com')).toEqual([]);
+  });
+
   test('prefers the most specific configured subdomain', () => {
     expect(subdomain_to_path('components.changelog.finsweet.com')).toEqual([
       'components',
@@ -59,7 +63,10 @@ describe('path_to_subdomain', () => {
     });
   });
 
-  test('returns undefined when the first path is not configured', () => {
-    expect(path_to_subdomain(['random'])).toBeUndefined();
+  test('falls back to the main webflow subdomain when path is not configured', () => {
+    expect(path_to_subdomain(['random'])).toEqual({
+      subdomain: 'wf',
+      wildcard_paths: ['random'],
+    });
   });
 });
