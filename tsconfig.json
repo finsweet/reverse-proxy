@@ -1,6 +1,3 @@
 {
-  "extends": "@finsweet/tsconfig",
-  "compilerOptions": {
-    "types": ["@cloudflare/workers-types"]
-  }
+  "extends": "@finsweet/tsconfig"
 }
